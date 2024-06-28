@@ -1,13 +1,12 @@
 import { Answer } from "./Answer";
 import { Question } from "./Question";
-import { Tag } from "./Tag";
 import { User } from "./Users";
+import { Comment } from "./Comment";
 
 export class StackOverflowSystem{
     private users: User[] = [];
     private questions: Question[] = [];
     private answers: Answer[] = [];
-    private tags: Tag[] = [];
     private comments: Comment[] = [];
     private static instanse: StackOverflowSystem | null;
 
@@ -30,16 +29,16 @@ export class StackOverflowSystem{
         this.users.push(newUser);
     }
 
-    public login(username: string, password: string): User | boolean {
+    public login(username: string, password: string): User {
         const user = this.users.find((val, ind) => val.getUsername === username);
         if(user){
             if (user.getPassword.getPassword !== password) {
                 throw new Error("This is user username or password incorrect")
             }
             return user
+        } else {
+            throw new Error("User not found")
         }
-        
-        return false
     }
 
     public addQuestion(newQuestion: Question) {
@@ -48,6 +47,7 @@ export class StackOverflowSystem{
         if (question) {
             throw new Error("This question already exists")
         }
+        // implement other check user has
 
         this.questions.push(newQuestion);
     }
@@ -59,7 +59,27 @@ export class StackOverflowSystem{
             throw new Error("this question is not found")
         }
 
-        this.questions.map(item => item.getId === questionId ? {answers: answer}: item)
+        this.answers.push(answer);
     }
-    
+
+    public addComment(comment: Comment) {
+        const from = comment.getTo;
+        if (from instanceof Question) {
+            const question = this.questions.find((val) => val.getId === from.getId);
+            if(!question) throw new Error("Question not found")
+        } else {
+            const answer = this.answers.find((val) => val.getId === from.getId);
+            if(!answer) throw new Error("Answer not found")
+        }
+
+        this.comments.push(comment);
+    }
+
+    public searchQuestion(value: string) {
+        return this.questions.filter((val) => val.getTitle.includes(value));
+    }
+
+    public getQuestionByTag(value: string) {
+        return this.questions.filter((val) => val.getTag.getName === value);
+    }
 }

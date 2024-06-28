@@ -8,7 +8,7 @@ export interface UserModel extends Id {
     username: string,
     email: string,
     reputation: string,
-    password: PasswordModel,
+    password: Password,
 }
 
 export class Password {
@@ -26,47 +26,29 @@ export class Password {
     private hashPassword(){}
 }
 
-export class User extends BaseClass {
-    private id: number;
-    private username: string;
-    private email: string;
-    private reputation: string;
-    private password: Password;
-
-    constructor(userModel: UserModel) {
-        super();
-        this.id = this.generateId();
-        this.username = userModel.username;
-        this.email = userModel.email;
-        this.reputation = userModel.reputation;
-        this.password = new Password(userModel.password);
-    }
+export class User extends BaseClass<UserModel> {
 
     public get getUsername() {
-        return this.username;
-    }
-
-    public get getId() {
-        return this.id;
+        return this.data.username;
     }
 
     public get getEmail(){
-        return this.email;
+        return this.data.email;
     }
 
     public getReputation() {
-        return this.reputation;
+        return this.data.reputation;
     }
 
     public set setReputation(reputation: string) {
-        this.reputation = reputation;
+        this.data.reputation = reputation;
     }
 
     public get getPassword() {
-        return this.password;
+        return this.data.password;
     }
 
     public set setPassword(password: PasswordModel){
-        this.password = new Password(password);
+        this.data.password = new Password(password);
     }
 }

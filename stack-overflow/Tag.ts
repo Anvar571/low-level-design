@@ -4,17 +4,8 @@ export interface TagModule extends Id {
     name: string
 }
 
-export class Tag extends BaseClass {
-    constructor(private tag: TagModule){
-        super();
-        this.tag.id = this.generateId();
-    }
-
+export class Tag extends BaseClass<TagModule> {
     public get getName(){
-        return this.tag.name;
-    }
-
-    public get getId(){
-        return this.tag.id;
+        return this.data.name;
     }
 }

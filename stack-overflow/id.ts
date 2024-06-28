@@ -3,10 +3,16 @@ export interface Id {
     id?: number,
 }
 
-export class BaseClass {
-    public idCount = 0;
+export class BaseClass<T> {
+    private static currentId = 0;
+    protected data: T & { id: number };
 
-    public generateId() {
-        return this.idCount++;
+    constructor(data?: T) {
+        Object.defineProperty(this, 'data', { value: data });
+        this.data.id = ++BaseClass.currentId;
+    }
+
+    public get getId() {
+        return this.data.id;
     }
 }

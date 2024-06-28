@@ -1,27 +1,34 @@
+import { Answer } from "./Answer";
+import { Question } from "./Question";
 import { User } from "./Users";
 import { BaseClass, Id } from "./id";
 
 export interface CommentModule extends Id {
     text: string,
     author: User,
-    timestamp: Date,
+    to: Question | Answer,
+    timestamp?: Date,
 }
 
-export class Comment extends BaseClass {
-    constructor(private comment: CommentModule) {
-        super()
-        this.comment.id = this.generateId();
-    }
+export class Comment extends BaseClass<CommentModule> {
+    constructor(data: CommentModule){
+        super(data)
+        this.data.timestamp = new Date();
 
+    }
     public get getText() {
-        return this.comment.text;
+        return this.data.text;
     }
 
     public get getAuthor(){
-        return this.comment.author;
+        return this.data.author;
+    }
+
+    public get getTo() {
+        return this.data.to;
     }
 
     public get getId() {
-        return this.comment.id;
+        return this.data.id;
     }
 }

@@ -11,37 +11,29 @@ export interface AnswerModel extends Id{
     vote_count?: VoteCount,
 }
 
-export class Answer extends BaseClass  {
-    constructor(private answer: AnswerModel) {
-        super();
-        this.answer.id = this.generateId();
-    }
-
-    public get getId() {
-        return this.answer.id;
-    }
+export class Answer extends BaseClass<AnswerModel>  {
 
     public get getAuthor(){
-        return this.answer.author;
+        return this.data.author;
     }
 
     public get getBody() {
-        return this.answer.body;
+        return this.data.body;
     }
 
     public get getQuestion() {
-        return this.answer.question;
+        return this.data.question;
     }
 
     public get getComments(){
-        return this.answer.comments;
+        return this.data.comments;
     }
 
     public setVoteCount(vote_count: VoteCount) {
-        this.answer.vote_count = vote_count;
+        this.data.vote_count = vote_count;
     }
 
     public get getVoteCount(){
-        return this.answer.vote_count;
+        return this.data.vote_count;
     }
 }

@@ -10,49 +10,41 @@ export interface QuestionModel extends Id {
     author: User,
     answers?: Answer[],
     comments?: Comment[],
-    tags?: Tag[],
-    vote_count?: VoteCount,
+    tags: Tag,
+    vote_count: VoteCount,
 }
 
-export class Question extends BaseClass {
-    constructor(private question: QuestionModel) {
-        super()
-        this.question.id = this.generateId();
-    }
+export class Question extends BaseClass<QuestionModel> {
 
     public get getTitle() {
-        return this.question.title;
+        return this.data.title;
     }
 
     public get getAuthor() {
-        return this.question.author;
+        return this.data.author;
     }
 
     public get getBody() {
-        return this.question.body;
-    }
-
-    public get getId() {
-        return this.question.id;
+        return this.data.body;
     }
 
     public get answers(){
-        return this.question.answers;
+        return this.data.answers;
     }
 
     public get comments() {
-        return this.question.comments;
+        return this.data.comments;
     }
 
-    public get tags() {
-        return this.question.tags;
+    public get getTag() {
+        return this.data.tags;
     }
 
     public get voteCount(): VoteCount | undefined {
-        return this.question.vote_count;
+        return this.data.vote_count;
     }
 
     public set voteCount(value: VoteCount) {
-        this.question.vote_count = value;
+        this.data.vote_count = value;
     }
 }
