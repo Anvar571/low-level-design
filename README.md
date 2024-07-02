@@ -1,5 +1,5 @@
 # low-level-design
-Learning low level design
+Learning low level design and Design pattern
 
 | # | Title |   code   |  sourse  |
 |---| ----- | -------- | -------- |
