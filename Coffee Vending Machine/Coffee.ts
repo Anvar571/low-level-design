@@ -8,16 +8,22 @@ export enum CoffeeType {
     LATTE = 'latte',
 }
 
+export enum CoffeeRecipe {
+    MILK = 'milk',
+    WATER = 'water',
+    COFFEE = 'coffee',
+}
+
 export type CoffeDetail = {
     type: CoffeeType;
     price: number;
-    recipe: Ingredient
+    recipe: Map<Ingredient, number>
 }
 
 export class Coffee {
     private type: CoffeeType;
     private price: number;
-    private recipe: Ingredient;
+    private recipe: Map<Ingredient, number>;
 
     constructor(coffee: CoffeDetail) {
         this.type = coffee.type;
