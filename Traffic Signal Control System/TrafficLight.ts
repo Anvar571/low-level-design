@@ -31,7 +31,20 @@ export class TrafficLight {
         return this.traffic.current_signal;
     }
 
-    public set setCurrentSignal(value: Signal) {
+    public changeSignal(value: Signal) {
         this.traffic.current_signal = value;
+    }
+
+    // vaqtlar transportlarning harakatiga qarab sozlanishi kerak
+    public setRedDuration(value: number) {
+        this.traffic.redDuration = value;
+    }
+
+    public setYellowDuration(value: number) {
+        this.traffic.yellowDuration = value;
+    }
+
+    public setGreenDuration(value: number) {
+        this.traffic.greenDuration = value;
     }
 }

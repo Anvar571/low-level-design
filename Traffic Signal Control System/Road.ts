@@ -7,9 +7,10 @@ export interface RoadModule {
 }
 
 export class Road {
+
     constructor(private road: RoadModule) {
     }
-
+    
     public get getName() {
         return this.road.name;
     }
@@ -18,7 +19,7 @@ export class Road {
         return this.road.id;
     }
 
-    public get trafficLight() {
+    public get getTrafficLight() {
         return this.road.traffic_light;
     }
 
@@ -26,7 +27,7 @@ export class Road {
         this.road.id = value;
     }
 
-    public set setTrafficLight(value: TrafficLight) {
+    public setTrafficLight(value: TrafficLight) {
         this.road.traffic_light = value;
     }
 }
