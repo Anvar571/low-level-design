@@ -1,3 +1,4 @@
+import { ConcretSubscriber } from "./ConcreteSubscriber";
 import { Message } from "./Message";
 import { Subscriber } from "./Subscriber"
 
@@ -6,10 +7,10 @@ export interface TopicModel {
 }
 
 export class Topic {
-    private subscribers: Set<Subscriber>;
+    private subscribers: Map<string, Subscriber>;
 
     constructor(private topic: TopicModel) {
-        this.subscribers = new Set();
+        this.subscribers = new Map();
     }
 
     public get name() {
@@ -21,19 +22,24 @@ export class Topic {
     }
 
     public addSubscriber(newSubscriber: Subscriber) {
-        this.subscribers.add(newSubscriber);
+        if (newSubscriber instanceof ConcretSubscriber) {
+            this.subscribers.set(newSubscriber.getName, newSubscriber);
+        }
+        return false;
     }
 
     public removeSubscriber(subscriber: Subscriber) {
-        const removeSubscriber = this.subscribers.has(subscriber);
+        if (subscriber instanceof ConcretSubscriber) {
+            const removeSubscriber = this.subscribers.has(subscriber.getName);
+            
+            if (!removeSubscriber) throw new Error("not found");
 
-        if (!removeSubscriber) throw new Error("not found");
-
-        this.subscribers.delete(subscriber);
+            this.subscribers.delete(subscriber.getName);
+        }
     }
 
     public publish(topic: Topic, message: Message) {
-        for (let subscriber of this.subscribers) {
+        for (let [_, subscriber] of this.subscribers) {
             subscriber.onMethod(topic, message);
         }
     }

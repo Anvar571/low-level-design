@@ -20,16 +20,13 @@ export class PubSubSystem {
         topic1.addSubscriber(subscriber1);
         topic1.addSubscriber(subscriber2);
 
-        console.log(topic1.allSubscribers(), 'subscribers');
-
         publisher.publish(topic1, new Message({title: "Message 1", description: "This is a message the best"}));
         publisher.publish(topic1, new Message({title: "Message 2", description: "This is a message the best"}));
 
-        topic1.removeSubscriber(subscriber2);
-        console.log('after removed subscriber');
+        // topic1.removeSubscriber(subscriber2);
 
         publisher.publish(topic1, new Message({title: "Message 3", description: "This is a message the best"}));
-        publisher.publish(topic3, new Message({title: "Message 4", description: "This is a message the best"}));
+        publisher.publish(topic2, new Message({title: "Message 4", description: "This is a message the best"}));
     }
 }
 
