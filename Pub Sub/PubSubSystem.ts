@@ -1,34 +1,36 @@
 import { ConcretSubscriber } from "./ConcreteSubscriber";
+import { Message } from "./Message";
 import { Publisher } from "./Publisher";
 import { Topic } from "./Topic";
 
 export class PubSubSystem {
-    constructor(
-        private readonly publisher: Publisher,
-        private readonly topic: Topic,
-        
-    ) {}
-
     static run() {
-        const topic1 = new Topic({name: "topic 1"});
-        const topic2 = new Topic({name: "topic 2"});
-        const topic3 = new Topic({name: "topic 3"});
+        const topic1 = new Topic({name: "Course"});
+        const topic2 = new Topic({name: "Treding"});
+        const topic3 = new Topic({name: "IT"});
 
         const publisher = new Publisher();
-        const publisher2 = new Publisher();
 
         const subscriber1 = new ConcretSubscriber("subscriber 1");
         const subscriber2 = new ConcretSubscriber("subscriber 2");
 
-        const message = publisher.publishMessage({title: "lorem", description: "lorem ipsum"});
-        const message2 = publisher.publishMessage({title: "lorem", description: "lorem ipsum2 "});
+        publisher.registerTopic(topic1);
+        publisher.registerTopic(topic2);
 
+        topic1.addSubscriber(subscriber1);
+        topic1.addSubscriber(subscriber2);
 
-        subscriber1.onMethod(message);
-        subscriber1.onMethod(message2);
+        console.log(topic1.allSubscribers(), 'subscribers');
 
+        publisher.publish(topic1, new Message({title: "Message 1", description: "This is a message the best"}));
+        publisher.publish(topic1, new Message({title: "Message 2", description: "This is a message the best"}));
+
+        topic1.removeSubscriber(subscriber2);
+        console.log('after removed subscriber');
+
+        publisher.publish(topic1, new Message({title: "Message 3", description: "This is a message the best"}));
+        publisher.publish(topic3, new Message({title: "Message 4", description: "This is a message the best"}));
     }
 }
-
 
 PubSubSystem.run();

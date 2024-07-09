@@ -1,22 +1,31 @@
-import { Message, MessageModel } from "./Message";
-import { findMessage } from "./util";
+import { Message } from "./Message";
+import { Topic } from "./Topic";
 
 export class Publisher {
-    private messages: Message[] = [];
+    private topics: Set<Topic>;
 
-    public publishMessage(newMessage: MessageModel): Message {
-        const maybeMessage = findMessage(this.messages, "title", newMessage.title);
-        maybeMessage.map(message => {
-            throw new Error(`This message already exists ${message}`);
-        });
-        const message = new Message(newMessage);
-        maybeMessage.byDefault(() => {
-            this.messages.push(message);
-        });
-        return message;
+    constructor() {
+        this.topics = new Set();
     }
 
-    public allMessages() {
-        return this.messages;
+    public registerTopic(newTopic: Topic): Topic {
+        const topic = this.topics.has(newTopic);
+
+        if (topic) throw new Error("This is a topic already exists");
+
+        this.topics.add(newTopic);
+        return newTopic;
+    }
+
+    public publish(topic: Topic, message: Message) {
+        if (!this.topics.has(topic)) {
+            console.log(`This publisher can't publish to topic: ${topic.name}`);
+            return;
+          }
+          topic.publish(topic, message);
+    }
+
+    public allTopics() {
+        return this.topics;
     }
 }

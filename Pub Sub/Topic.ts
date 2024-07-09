@@ -6,28 +6,35 @@ export interface TopicModel {
 }
 
 export class Topic {
-    private subscribers: Subscriber[] = [];
+    private subscribers: Set<Subscriber>;
 
-    constructor(private topic: TopicModel) {}
+    constructor(private topic: TopicModel) {
+        this.subscribers = new Set();
+    }
 
-    public get getTopic() {
+    public get name() {
         return this.topic.name;
     }
 
+    public allSubscribers() {
+        return this.subscribers;
+    }
+
     public addSubscriber(newSubscriber: Subscriber) {
-        this.subscribers.push(newSubscriber);
+        this.subscribers.add(newSubscriber);
     }
 
     public removeSubscriber(subscriber: Subscriber) {
-        const findIndex = this.subscribers.findIndex((val) => val.onMethod === subscriber.onMethod);
-        if (findIndex === -1) throw new Error("not found");
-        this.subscribers.splice(findIndex, 1);
+        const removeSubscriber = this.subscribers.has(subscriber);
+
+        if (!removeSubscriber) throw new Error("not found");
+
+        this.subscribers.delete(subscriber);
     }
 
-    public publish(message: Message) {
+    public publish(topic: Topic, message: Message) {
         for (let subscriber of this.subscribers) {
-            subscriber.onMethod(message);
+            subscriber.onMethod(topic, message);
         }
     }
-    
 }
