@@ -1,5 +1,7 @@
 # Designing a Tic Tac Toe Game
 
+### This project works with deno land or getValidateInput change this function
+
 ## Requirements
 1. The Tic-Tac-Toe game should be played on a 3x3 grid.
 2. Two players take turns marking their symbols (X or O) on the grid.
