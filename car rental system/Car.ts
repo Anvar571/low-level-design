@@ -8,7 +8,8 @@ export interface CarModule {
 }
 
 export enum CAR_STATUS {
-    
+    ACTIVE = 'active',
+    INACTIVE = 'inactive'
 }
 
 export class Car implements CarModule {
