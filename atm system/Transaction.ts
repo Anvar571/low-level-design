@@ -1,16 +1,13 @@
 export abstract class Transaction {
-    buy: (value: number) => any;
-    sell: (value: number) => any;
+    payment: (x?: number) => number;
 }
 
+// bank hisobidan pull olish
 export class WithdrawalTransaction implements Transaction {
-    buy() {
-        
-    }
-    sell() {}
+    payment: (x?: number | undefined) => number;
 }
 
+// pull qo'yish
 export class DepositTransaction implements Transaction {
-    buy() {}
-    sell() {}
+    payment: (x?: number | undefined) => number;
 }

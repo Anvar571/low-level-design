@@ -1,13 +1,11 @@
+
 export class Account {
     private account_number: number;
     private balance: number;
-    private credit: number;
-    private deposite: number;
 
     constructor(account_number: number, balance: number) {
-        this.credit = 0;
-        this.deposite = 0;
-        this.checkCridetAndDeposit();
+        this.account_number = account_number;
+        this.balance = balance;
     }
 
     public get get_account_number() {
@@ -18,11 +16,11 @@ export class Account {
         return this.balance;
     }
 
-    cridet() {}
+    cridet(sum: number) {
 
-    debit() {}
+    }
 
-    private checkCridetAndDeposit() {
-        if (this.credit < 0 || this.deposite < 0) throw new Error("Don't should be zero the credit and deposit");
+    debit(sum: number) {
+        this.balance += sum;
     }
 }
