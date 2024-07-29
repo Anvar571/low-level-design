@@ -17,7 +17,7 @@ export class Account {
     }
 
     cridet(sum: number) {
-
+        
     }
 
     debit(sum: number) {
