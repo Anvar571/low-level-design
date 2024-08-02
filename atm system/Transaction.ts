@@ -11,7 +11,7 @@ export abstract class Transaction {
         this.amount = data.amount;
     }
 
-    public abstract execute: () => any;
+    public abstract execute(): any;
 }
 
 export class WithdrawalTransaction extends Transaction {
@@ -19,8 +19,8 @@ export class WithdrawalTransaction extends Transaction {
         super(data);
     }
 
-    execute()  {
-        console.log("ads");
+    public execute(): any {
+        return { status: 'success', transactionId: this.transactionId };
     }
    
 }
@@ -30,7 +30,8 @@ export class DepositTransaction extends Transaction {
     constructor(data: {transactionId: number, account: Account, amount: number}) {
         super(data);
     }
-    execute()  {
-        
+    
+    public execute(): any  {
+        return {}
     }
 }
