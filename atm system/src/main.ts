@@ -19,12 +19,12 @@ export class Demo {
         const atm = new ATM(bank, cashDispenser);
         
         atm.authenticateUser(card1, account1);
-        atm.authenticateUser(card2, account2);
+        // atm.authenticateUser(card2, account2);
 
-        atm.withdrawCash(100000, account1);
+        atm.withdrawCash(100000);
 
-        atm.checkBalance(account1);
-
+        atm.checkBalance();
+        
         console.log(account1.get_balance, 'after balance');
         
     };

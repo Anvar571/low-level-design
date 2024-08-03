@@ -21,6 +21,10 @@ export class BankingService {
         return true;
     }
 
+    public getAccount(account_number: string) {
+        return this.accounts.get(account_number);
+    }
+
     public registerCard(card: Card): boolean {
         const find = this.findCard(card);
         if (find) return false;
