@@ -1,9 +1,9 @@
 
 export class Account {
-    private account_number: number;
+    private account_number: string;
     private balance: number;
 
-    constructor(account_number: number, balance: number) {
+    constructor(account_number: string, balance: number) {
         this.account_number = account_number;
         this.balance = balance;
     }
@@ -16,11 +16,11 @@ export class Account {
         return this.balance;
     }
 
-    cridet(sum: number) {
-        
+    public cridet(sum: number) {
+        this.balance += sum;
     }
 
-    debit(sum: number) {
-        this.balance += sum;
+    public debit(sum: number) {
+        this.balance -= sum;
     }
 }

@@ -20,9 +20,8 @@ export class WithdrawalTransaction extends Transaction {
     }
 
     public execute(): any {
-        return { status: 'success', transactionId: this.transactionId };
+        this.account.cridet(this.amount);
     }
-   
 }
 
 // pull qo'yish
@@ -32,6 +31,6 @@ export class DepositTransaction extends Transaction {
     }
     
     public execute(): any  {
-        return {}
+        this.account.debit(this.amount);
     }
 }
